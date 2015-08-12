@@ -5,6 +5,7 @@
 //  Created by Huebner, Rob on 8/6/15.
 //  Copyright (c) 2015 Zetterstrom, Kevin. All rights reserved.
 //
+//setting up player
 
 import UIKit
 import MediaPlayer
