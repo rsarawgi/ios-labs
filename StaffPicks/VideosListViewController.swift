@@ -1,5 +1,5 @@
 //
-//  StaffPicksViewController.swift
+//  VideosListViewController.swift
 //  StaffPicks
 //
 //  Created by Zetterstrom, Kevin on 6/4/15.
@@ -8,15 +8,19 @@
 
 import UIKit
 
-class StaffPicksViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class VideosListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
     var items: [Video] = []
+    
+    var endpoint: String? = StaffPicksEndpoint
 
     @IBOutlet weak var tableView: UITableView?
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.tabBarItem = UITabBarItem(title: endpoint, image: nil, selectedImage: nil)
   
         let nib = UINib(nibName: "VideoCell", bundle: nil)
         
@@ -25,7 +29,8 @@ class StaffPicksViewController: UIViewController, UITableViewDataSource, UITable
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
         
-        VimeoClient.myVideos { [weak self] (videos, error) -> Void in
+        if let endpoint = self.endpoint{
+        VimeoClient.requestEndpoint(endpoint) { [weak self] (videos, error) -> Void in
             
             if let strongSelf = self {
 
@@ -46,6 +51,7 @@ class StaffPicksViewController: UIViewController, UITableViewDataSource, UITable
                 }
             }
         }
+    }
     }
 
     // MARK: UITableViewDelegate
