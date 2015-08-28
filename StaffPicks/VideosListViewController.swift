@@ -21,7 +21,8 @@ class VideosListViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         
         self.tabBarItem = UITabBarItem(title: endpoint, image: nil, selectedImage: nil)
-  
+        
+        self.setupAboutButton()
         let nib = UINib(nibName: "VideoCell", bundle: nil)
         
         self.tableView?.registerNib(nib, forCellReuseIdentifier: VideoCell.CellIdentifier)
@@ -55,6 +56,21 @@ class VideosListViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     // MARK: UITableViewDelegate
+    
+    func setupAboutButton() {
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: Selector("aboutButtonTapped"))
+        self.navigationItem.rightBarButtonItem = button
+    }
+    
+    func aboutButtonTapped(){
+        let alertController = UIAlertController(title: "About Vimeo", message: "created by iosLabs", preferredStyle: UIAlertControllerStyle.Alert)
+        let doneAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.Default){
+            (action) -> Void in
+            print("whatever")
+        }
+        alertController.addAction(doneAction)
+        self.presentViewController(alertController, animated: true, completion:nil)
+    }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
